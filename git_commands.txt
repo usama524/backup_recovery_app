@@ -1,0 +1,28 @@
+Steps to pull code from repository
+
+Step 1: git clone https://github.com/your-username/backup_recovery_app.git
+Step 2: cd "goto directory" (for example cd backup_recovery_app)
+Step 3: 
+
+Making Changes to Your Code
+Edit Files:
+Make changes to your project files using your preferred editor or IDE.
+
+Check the Status:
+Before committing, you can check which files have been changed:
+
+then run command : git status 
+
+
+Step 4: git add .
+Step 5: git commit -m "Describe the changes you made"
+Step 6: git push origin main
+
+Step 7: 
+
+Updating Your Local Repository
+If other collaborators make changes to the repository, or if you work on multiple machines, you should regularly pull the latest changes from the remote repository:
+
+Pull Latest Changes:
+
+command : git pull origin main
