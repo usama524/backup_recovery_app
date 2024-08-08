@@ -1,19 +1,20 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QStackedWidget, QMessageBox # type: ignore
-from ui_login import Ui_LoginWindow # type: ignore
-from ui_backup import Ui_BackupWindow # type: ignore
-from ui_restore import Ui_RestoreWindow # type: ignore
-from ui_log import Ui_LogWindow # type: ignore
-from ui_about import Ui_AboutWindow # type: ignore
+from PyQt5.QtWidgets import QApplication, QMainWindow, QStackedWidget, QMessageBox
+from login import LoginWindow  # Import the LoginWindow class
+from ui_backup import Ui_BackupWindow
+from ui_restore import Ui_RestoreWindow
+from ui_log import Ui_LogWindow
+from ui_about import Ui_AboutWindow
 from backup_manager import BackupThread
 from restore_manager import RestoreThread
 from user_auth import authenticate_user, register_user
 
 class MainApp(QMainWindow):
+    
     def __init__(self):
         super().__init__()
-        self.login_window = Ui_LoginWindow()
-        self.backup_window = Ui_BackupWindow()
+        self.login_window = LoginWindow()  # Initialize the LoginWindow
+        self.backup_window = Ui_BackupWindow()  # Initialize the backup window
         self.restore_window = Ui_RestoreWindow()
         self.log_window = Ui_LogWindow()
         self.about_window = Ui_AboutWindow()
@@ -24,8 +25,8 @@ class MainApp(QMainWindow):
         self.setCentralWidget(self.stacked_widget)
         
         # Initialize and setup login, backup, restore, log, and about windows
-        self.login_window.setupUi(self)
-        self.backup_window.setupUi(self)
+        self.login_window.init_ui()  # Use init_ui instead of setupUi
+        self.backup_window.setupUi(self)  # Setup backup window UI
         self.restore_window.setupUi(self)
         self.log_window.setupUi(self)
         self.about_window.setupUi(self)
@@ -45,7 +46,7 @@ class MainApp(QMainWindow):
         self.log_window.clear_log_button.clicked.connect(self.clear_logs)
         
         # Show login window initially
-        self.stacked_widget.setCurrentWidget(self.login_window)
+        self.stacked_widget.setCurrentWidget(self.login_window)    
 
     def login(self):
         username = self.login_window.username_input.text()
@@ -66,7 +67,6 @@ class MainApp(QMainWindow):
 
     def start_backup(self):
         # Start the backup process (this should include gathering backup options)
-        # Example:
         backup_thread = BackupThread(filename="backup", source="/path/to/source",
                                      destination="/path/to/destination", compression="gzip",
                                      encryption_key=b"your-encryption-key")
@@ -75,7 +75,6 @@ class MainApp(QMainWindow):
 
     def start_restore(self):
         # Start the restore process (this should include gathering restore options)
-        # Example:
         restore_thread = RestoreThread(filename="backup.enc", destination="/path/to/destination",
                                        encryption_key=b"your-encryption-key")
         restore_thread.progress.connect(self.update_log)

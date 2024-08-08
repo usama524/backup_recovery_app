@@ -3,6 +3,7 @@ import os
 import shutil
 import tarfile
 from cryptography.fernet import Fernet # type: ignore
+from PyQt5.QtCore import QThread, pyqtSignal
 
 class RestoreThread(QThread):
     progress = pyqtSignal(str)
